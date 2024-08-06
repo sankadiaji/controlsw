@@ -183,7 +183,7 @@ typedef struct {
     DATA_BLOCK_USER_MUX_s *userMux;
     DATA_BLOCK_BALANCING_CONTROL_s *balancingControl;
     DATA_BLOCK_SLAVE_CONTROL_s *slaveControl;
-    DATA_BLOCK_OPEN_WIRE_s *openWire; /* Wie genau open wire check behandeln? Was genau abspeichern? */
+    DATA_BLOCK_OPEN_WIRE_s *openWire; /* How exactly do open wire check treat? What exactly do you save? */
     N775_SUPPLY_CURRENT_s *supplyCurrent;
     N775_ERROR_TABLE_s *errorTable;
     uint64_t uid[BS_NR_OF_STRINGS][BS_NR_OF_MODULES_PER_STRING];

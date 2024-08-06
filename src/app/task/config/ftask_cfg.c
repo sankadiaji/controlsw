@@ -228,7 +228,7 @@ extern void FTSK_RunUserCodeCyclic1ms(void) {
     OS_IncrementTimer();
     DIAG_UpdateFlags();
     /* user code */
-#if (FOXBMS_AFE_DRIVER_TYPE_FSM == 1)
+#if (FOXBMS_AFE_DRIVER_TYPE_NO_FSM == 1)
     MEAS_Control();
 #endif
     CAN_ReadRxBuffer();

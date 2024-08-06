@@ -455,36 +455,36 @@ def configure(conf):  # pylint: disable=too-many-statements,too-many-branches
     afe_ic_inc = slave_afe["ic"]
     afe_driver_type = "fsm"
     afe_ic_d = None
-    if slave_afe["manufacturer"] == "ltc":
-        if slave_afe["ic"] in ("6804-1", "6811-1", "6812-1"):
-            afe_ic_inc = "6813-1"
-        if slave_afe["ic"] == "6804-1":
-            afe_ic_d = "LTC_LTC6804_1"
-        elif slave_afe["ic"] == "6806":
-            afe_ic_d = "LTC_LTC6806"
-        elif slave_afe["ic"] == "6811-1":
-            afe_ic_d = "LTC_LTC6811_1"
-        elif slave_afe["ic"] == "6812-1":
-            afe_ic_d = "LTC_LTC6812_1"
-        elif slave_afe["ic"] == "6813-1":
-            afe_ic_d = "LTC_LTC6813_1"
-    elif slave_afe["manufacturer"] == "nxp":
+    # if slave_afe["manufacturer"] == "ltc":
+    #     if slave_afe["ic"] in ("6804-1", "6811-1", "6812-1"):
+    #         afe_ic_inc = "6813-1"
+    #     if slave_afe["ic"] == "6804-1":
+    #         afe_ic_d = "LTC_LTC6804_1"
+    #     elif slave_afe["ic"] == "6806":
+    #         afe_ic_d = "LTC_LTC6806"
+    #     elif slave_afe["ic"] == "6811-1":
+    #         afe_ic_d = "LTC_LTC6811_1"
+    #     elif slave_afe["ic"] == "6812-1":
+    #         afe_ic_d = "LTC_LTC6812_1"
+    #     elif slave_afe["ic"] == "6813-1":
+    #         afe_ic_d = "LTC_LTC6813_1"
+    if slave_afe["manufacturer"] == "nxp":
         afe_driver_type = "no-fsm"
         if slave_afe["ic"] == "mc33775a":
             afe_ic_d = "NXP_MC33775A"
-    elif slave_afe["manufacturer"] == "adi":
-        afe_driver_type = "no-fsm"
-        if slave_afe["ic"] == "ades1830":
-            afe_ic_d = "ADI_ADES1830"
-    elif slave_afe["manufacturer"] == "debug":
-        if slave_afe["ic"] == "default":
-            afe_ic_d = "DEBUG_DEFAULT"
-    elif slave_afe["manufacturer"] == "maxim":
-        if slave_afe["ic"] == "max17852":
-            afe_ic_d = "MAX_MAX17852"
-    elif slave_afe["manufacturer"] == "ti":
-        if slave_afe["ic"] == "dummy":
-            afe_ic_d = "TI_DUMMY"
+    # elif slave_afe["manufacturer"] == "adi":
+    #     afe_driver_type = "no-fsm"
+    #     if slave_afe["ic"] == "ades1830":
+    #         afe_ic_d = "ADI_ADES1830"
+    # elif slave_afe["manufacturer"] == "debug":
+    #     if slave_afe["ic"] == "default":
+    #         afe_ic_d = "DEBUG_DEFAULT"
+    # elif slave_afe["manufacturer"] == "maxim":
+    #     if slave_afe["ic"] == "max17852":
+    #         afe_ic_d = "MAX_MAX17852"
+    # elif slave_afe["manufacturer"] == "ti":
+    #     if slave_afe["ic"] == "dummy":
+    #         afe_ic_d = "TI_DUMMY"
 
     if not afe_ic_d:
         conf.fatal("AFE IC specific define not set.")
@@ -529,12 +529,12 @@ def configure(conf):  # pylint: disable=too-many-statements,too-many-branches
     # balancing strategy
     conf.env.balancing_strategy = app_cfg["balancing-strategy"]
     # ltc 6806 (fuel cell monitoring ic) has no balancing support
-    if (
-        afe_man == "ltc"
-        and afe_ic == "6806"
-        and not conf.env.balancing_strategy == "none"
-    ):
-        conf.fatal(f"{afe_man.upper()} {afe_ic} does not support balancing.")
+    # if (
+    #     afe_man == "ltc"
+    #     and afe_ic == "6806"
+    #     and not conf.env.balancing_strategy == "none"
+    # ):
+        # conf.fatal(f"{afe_man.upper()} {afe_ic} does not support balancing.")
 
     # insulation-monitoring-device
     imd_cfg = app_cfg["insulation-monitoring-device"]
@@ -722,8 +722,8 @@ def build(bld):  # pylint: disable=too-many-branches,too-many-statements
         _exclude = [
             bld.path.find_node(os.path.join("src", "hal")),
             bld.path.find_node(os.path.join("src", "os")),
-            bld.path.find_node(os.path.join("src", "app", "driver", "afe", "ltc", "common", "ltc_pec.c")),
-            bld.path.find_node(os.path.join("src", "app", "driver", "afe", "ltc", "common", "ltc_pec.h")),
+            # bld.path.find_node(os.path.join("src", "app", "driver", "afe", "ltc", "common", "ltc_pec.c")),
+            # bld.path.find_node(os.path.join("src", "app", "driver", "afe", "ltc", "common", "ltc_pec.h")),
             bld.path.find_node(os.path.join("src", "app", "driver", "afe", "nxp", "mc33775a","vendor")),
             bld.path.find_node(os.path.join("tests", "unit", "build")),
         ]
@@ -876,16 +876,16 @@ def build(bld):  # pylint: disable=too-many-branches,too-many-statements
             os.path.join(doc_dir, "hardware", "connectors.rst"),
             os.path.join(doc_dir, "hardware", "design-resources.rst"),
             os.path.join(doc_dir, "hardware", "hardware.rst"),
-            os.path.join(doc_dir, "hardware", "interfaces", "ltc-ltc6820-vx.x.x", "ltc-ltc6820-changelog.rst"),
-            os.path.join(doc_dir, "hardware", "interfaces", "ltc-ltc6820-vx.x.x", "ltc-ltc6820-v1.0.3", "ltc-ltc6820-v1.0.3_isospi_connectors.csv"),
-            os.path.join(doc_dir, "hardware", "interfaces", "ltc-ltc6820-vx.x.x", "ltc-ltc6820-v1.0.3", "ltc-ltc6820-v1.0.3_master_connector.csv"),
-            os.path.join(doc_dir, "hardware", "interfaces", "ltc-ltc6820-vx.x.x", "ltc-ltc6820-v1.0.3.rst"),
-            os.path.join(doc_dir, "hardware", "interfaces", "maxim-max17841b-vx.x.x", "maxim-max17841b-changelog.rst"),
-            os.path.join(doc_dir, "hardware", "interfaces", "maxim-max17841b-vx.x.x", "maxim-max17841b-v1.0.0", "maxim-max17841b-v1.0.0_debug_connector.csv"),
-            os.path.join(doc_dir, "hardware", "interfaces", "maxim-max17841b-vx.x.x", "maxim-max17841b-v1.0.0", "maxim-max17841b-v1.0.0_master_connector.csv"),
-            os.path.join(doc_dir, "hardware", "interfaces", "maxim-max17841b-vx.x.x", "maxim-max17841b-v1.0.0", "maxim-max17841b-v1.0.0_uartrx_connectors.csv"),
-            os.path.join(doc_dir, "hardware", "interfaces", "maxim-max17841b-vx.x.x", "maxim-max17841b-v1.0.0", "maxim-max17841b-v1.0.0_uarttx_connectors.csv"),
-            os.path.join(doc_dir, "hardware", "interfaces", "maxim-max17841b-vx.x.x", "maxim-max17841b-v1.0.0.rst"),
+            # os.path.join(doc_dir, "hardware", "interfaces", "ltc-ltc6820-vx.x.x", "ltc-ltc6820-changelog.rst"),
+            # os.path.join(doc_dir, "hardware", "interfaces", "ltc-ltc6820-vx.x.x", "ltc-ltc6820-v1.0.3", "ltc-ltc6820-v1.0.3_isospi_connectors.csv"),
+            # os.path.join(doc_dir, "hardware", "interfaces", "ltc-ltc6820-vx.x.x", "ltc-ltc6820-v1.0.3", "ltc-ltc6820-v1.0.3_master_connector.csv"),
+            # os.path.join(doc_dir, "hardware", "interfaces", "ltc-ltc6820-vx.x.x", "ltc-ltc6820-v1.0.3.rst"),
+            # os.path.join(doc_dir, "hardware", "interfaces", "maxim-max17841b-vx.x.x", "maxim-max17841b-changelog.rst"),
+            # os.path.join(doc_dir, "hardware", "interfaces", "maxim-max17841b-vx.x.x", "maxim-max17841b-v1.0.0", "maxim-max17841b-v1.0.0_debug_connector.csv"),
+            # os.path.join(doc_dir, "hardware", "interfaces", "maxim-max17841b-vx.x.x", "maxim-max17841b-v1.0.0", "maxim-max17841b-v1.0.0_master_connector.csv"),
+            # os.path.join(doc_dir, "hardware", "interfaces", "maxim-max17841b-vx.x.x", "maxim-max17841b-v1.0.0", "maxim-max17841b-v1.0.0_uartrx_connectors.csv"),
+            # os.path.join(doc_dir, "hardware", "interfaces", "maxim-max17841b-vx.x.x", "maxim-max17841b-v1.0.0", "maxim-max17841b-v1.0.0_uarttx_connectors.csv"),
+            # os.path.join(doc_dir, "hardware", "interfaces", "maxim-max17841b-vx.x.x", "maxim-max17841b-v1.0.0.rst"),
             os.path.join(doc_dir, "hardware", "interfaces", "nxp-mc33664-vx.x.x", "nxp-mc33664-changelog.rst"),
             os.path.join(doc_dir, "hardware", "interfaces", "nxp-mc33664-vx.x.x", "nxp-mc33664-v1.0.2.rst"),
             os.path.join(doc_dir, "hardware", "interfaces.rst"),
@@ -908,75 +908,75 @@ def build(bld):  # pylint: disable=too-many-branches,too-many-statements
             os.path.join(doc_dir, "hardware", "master", "ti-tms570lc4357-vx.x.x", "ti-tms570lc4357-v1.1.3.rst"),
             os.path.join(doc_dir, "hardware", "master", "ti-tms570lc4357-vx.x.x", "ti-tms570lc4357-v1.1.5.rst"),
             os.path.join(doc_dir, "hardware", "master.rst"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6804-1-vx.x.x", "12-ltc-ltc6804-1-v1.x.x", "12-ltc-ltc6804-1-v1.x.x_cell_temperature_connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6804-1-vx.x.x", "12-ltc-ltc6804-1-v1.x.x", "12-ltc-ltc6804-1-v1.x.x_cell_voltage_connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6804-1-vx.x.x", "12-ltc-ltc6804-1-v1.x.x", "12-ltc-ltc6804-1-v1.x.x_master_daisy_connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6804-1-vx.x.x", "12-ltc-ltc6804-1-v1.x.x", "12-ltc-ltc6804-1-v1.x.x_primary_daisy_connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6804-1-vx.x.x", "12-ltc-ltc6804-1-v1.x.x.rst"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-changelog.rst"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_analog-inputs-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_cell-voltage-sense-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_daisy-input-connectors.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_daisy-output-connectors.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_digital-io-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_electrical-ratings.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_extension-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_external-dc-supply-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_gpio-extension-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_mechanical-dimensions.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_temperature-sensor-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3.rst"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_analog-inputs-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_cell-voltage-sense-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_daisy-input-connectors.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_daisy-output-connectors.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_digital-io-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_electrical-ratings.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_extension-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_external-dc-supply-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_gpio-extension-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_mechanical-dimensions.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_temperature-sensor-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2.rst"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_analog-inputs-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_cell-voltage-sense-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_daisy-input-connectors.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_daisy-output-connectors.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_digital-io-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_electrical-ratings.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_extension-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_external-dc-supply-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_gpio-extension-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_mechanical-dimensions.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_temperature-sensor-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6.rst"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6804-1-vx.x.x", "12-ltc-ltc6804-1-v1.x.x", "12-ltc-ltc6804-1-v1.x.x_cell_temperature_connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6804-1-vx.x.x", "12-ltc-ltc6804-1-v1.x.x", "12-ltc-ltc6804-1-v1.x.x_cell_voltage_connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6804-1-vx.x.x", "12-ltc-ltc6804-1-v1.x.x", "12-ltc-ltc6804-1-v1.x.x_master_daisy_connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6804-1-vx.x.x", "12-ltc-ltc6804-1-v1.x.x", "12-ltc-ltc6804-1-v1.x.x_primary_daisy_connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6804-1-vx.x.x", "12-ltc-ltc6804-1-v1.x.x.rst"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-changelog.rst"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_analog-inputs-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_cell-voltage-sense-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_daisy-input-connectors.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_daisy-output-connectors.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_digital-io-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_electrical-ratings.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_extension-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_external-dc-supply-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_gpio-extension-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_mechanical-dimensions.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3", "12-ltc-ltc6811-1-v2.0.3_temperature-sensor-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.0.3.rst"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_analog-inputs-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_cell-voltage-sense-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_daisy-input-connectors.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_daisy-output-connectors.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_digital-io-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_electrical-ratings.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_extension-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_external-dc-supply-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_gpio-extension-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_mechanical-dimensions.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2", "12-ltc-ltc6811-1-v2.1.2_temperature-sensor-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.2.rst"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_analog-inputs-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_cell-voltage-sense-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_daisy-input-connectors.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_daisy-output-connectors.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_digital-io-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_electrical-ratings.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_extension-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_external-dc-supply-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_gpio-extension-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_mechanical-dimensions.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6", "12-ltc-ltc6811-1-v2.1.6_temperature-sensor-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "12-ltc-ltc6811-1-vx.x.x", "12-ltc-ltc6811-1-v2.1.6.rst"),
             os.path.join(doc_dir, "hardware", "slaves", "14-nxp-mc33775a-vx.x.x", "14-nxp-mc33775a-changelog.rst"),
             os.path.join(doc_dir, "hardware", "slaves", "14-nxp-mc33775a-vx.x.x", "14-nxp-mc33775a-v1.0.0", "14-nxp-mc33775a-v1.0.0_mechanical-dimensions.csv"),
             os.path.join(doc_dir, "hardware", "slaves", "14-nxp-mc33775a-vx.x.x", "14-nxp-mc33775a-v1.0.0.rst"),
-            os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-changelog.rst"),
-            os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-v0.9.0", "16-adi-ades1830-v0.9.0_cell_voltage-sense-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-v0.9.0", "16-adi-ades1830-v0.9.0_daisy-input-connectors.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-v0.9.0", "16-adi-ades1830-v0.9.0_daisy-output-connectors.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-v0.9.0", "16-adi-ades1830-v0.9.0_electrical-ratings.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-v0.9.0", "16-adi-ades1830-v0.9.0_mechanical-dimensions.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-v0.9.0", "16-adi-ades1830-v0.9.0_temperature-sensor-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-v0.9.0.rst"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-changelog.rst"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_analog-inputs-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_cell_voltage-sense-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_daisy-input-connectors.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_daisy-output-connectors.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_digital-io-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_electrical-ratings.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_extension-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_extension-connector_2.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_external-dc-supply-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_gpio-extension-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_mechanical-dimensions.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_temperature-sensor-connector.csv"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3.rst"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.4.rst"),
-            os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.5.rst"),
+            # os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-changelog.rst"),
+            # os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-v0.9.0", "16-adi-ades1830-v0.9.0_cell_voltage-sense-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-v0.9.0", "16-adi-ades1830-v0.9.0_daisy-input-connectors.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-v0.9.0", "16-adi-ades1830-v0.9.0_daisy-output-connectors.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-v0.9.0", "16-adi-ades1830-v0.9.0_electrical-ratings.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-v0.9.0", "16-adi-ades1830-v0.9.0_mechanical-dimensions.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-v0.9.0", "16-adi-ades1830-v0.9.0_temperature-sensor-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "16-adi-ades1830-vx.x.x", "16-adi-ades1830-v0.9.0.rst"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-changelog.rst"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_analog-inputs-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_cell_voltage-sense-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_daisy-input-connectors.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_daisy-output-connectors.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_digital-io-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_electrical-ratings.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_extension-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_extension-connector_2.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_external-dc-supply-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_gpio-extension-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_mechanical-dimensions.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3", "18-ltc-ltc6813-1-v1.1.3_temperature-sensor-connector.csv"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.3.rst"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.4.rst"),
+            # os.path.join(doc_dir, "hardware", "slaves", "18-ltc-ltc6813-1-vx.x.x", "18-ltc-ltc6813-1-v1.1.5.rst"),
             os.path.join(doc_dir, "hardware", "slaves.rst"),
             os.path.join(doc_dir, "index.rst"),
             os.path.join(doc_dir, "introduction", "abbreviations-definitions.rst"),

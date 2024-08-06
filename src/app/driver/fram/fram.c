@@ -124,7 +124,7 @@ extern STD_RETURN_TYPE_e FRAM_ReinitializeAllEntries(void) {
 
     for (uint16_t i = 0u; i < FRAM_BLOCK_MAX; i++) {
         if (FRAM_WriteData((FRAM_BLOCK_ID_e)i) != FRAM_ACCESS_OK) {
-            retVal = STD_OK;
+            retVal = STD_NOT_OK;
         }
     }
     return retVal;

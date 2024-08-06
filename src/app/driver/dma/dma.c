@@ -308,7 +308,7 @@ void UNIT_TEST_WEAK_IMPL dmaGroupANotification(dmaInterrupt_t inttype, uint32 ch
                     /* Disable SPI to prevent unwanted reception */
                     dma_spiInterfaces[spiIndex]->GCR1 &= ~SPIEN_BIT;
                     /* Set slave SPI Chip Select pins as GIO to deactivate slave SPI Chip Select pins */
-                    dma_spiInterfaces[spiIndex]->PC0 &= SPI_PC0_CLEAR_HW_CS_MASK;
+                    dma_spiInterfaces[spiIndex]->PC0 &= ~SPI_PC0_CLEAR_HW_CS_MASK;
 
                     /* Specific call for AFEs */
                     AFE_DmaCallback(spiIndex);

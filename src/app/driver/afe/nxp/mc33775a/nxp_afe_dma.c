@@ -78,7 +78,7 @@
 
 /* Function called on DMA complete interrupts (TX and RX). */
 void AFE_DmaCallback(uint8_t spiIndex) {
-    FAS_ASSERT((spiIndex == 0u) || (spiIndex == 3u));
+    //FAS_ASSERT((spiIndex == 0u) || (spiIndex == 3u));
     if ((spiIndex == 0u)) {
         /* SPI 1 = Master SPI */
         (void)OS_NotifyIndexedFromIsr(ftsk_taskHandleAfe, N775_NOTIFICATION_TX_INDEX, N775_TX_NOTIFIED_VALUE);
