@@ -94,6 +94,7 @@ def build(bld):
         os.path.join("..", "driver", "pwm"),
         os.path.join("..", "driver", "rtc"),
         os.path.join("..", "driver", "sbc"),
+         os.path.join("..", "driver", "emac"),
         os.path.join("..", "driver", "sbc", "fs8x_driver"),
         os.path.join("..", "driver", "spi"),
         os.path.join("..", "driver", "sps"),

@@ -67,6 +67,7 @@
 #include "database.h"
 #include "diag.h"
 #include "dma.h"
+#include "emac.h"
 #include "fram.h"
 #include "htsensor.h"
 #include "i2c.h"
@@ -276,6 +277,7 @@ extern void FTSK_RunUserCodeCyclic100ms(void) {
     BAL_Trigger();
     IMD_Trigger();
     LED_Trigger();
+    emacrun();
 
     ftsk_cyclic100msCounter++;
 }

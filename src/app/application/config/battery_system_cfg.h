@@ -142,7 +142,7 @@ typedef enum {
  * @def     BS_NR_OF_GPAS_PER_MODULE
  * @brief   Defines the number of GPA inputs
  */
-#define BS_NR_OF_GPAS_PER_MODULE (1u)
+#define BS_NR_OF_GPAS_PER_MODULE (2u)
 
 /**
  * @brief   number of temperature sensors per battery module

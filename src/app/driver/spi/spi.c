@@ -137,14 +137,14 @@ static uint8_t SPI_GetChipSelectPin(SPI_CHIP_SELECT_TYPE_e chipSelectType, uint3
 }
 static void SPI_InitializeChipSelects(void) {
     for (uint8_t s = 0u; s < BS_NR_OF_STRINGS; s++) {
-        spi_adiInterface[s].pConfig->CSNR = SPI_GetChipSelectPin(spi_adiInterface[s].csType, spi_adiInterface[s].csPin);
-        spi_ltcInterface[s].pConfig->CSNR = SPI_GetChipSelectPin(spi_ltcInterface[s].csType, spi_ltcInterface[s].csPin);
-        spi_nxp775InterfaceTx[s].pConfig->CSNR =
-            SPI_GetChipSelectPin(spi_nxp775InterfaceTx[s].csType, spi_nxp775InterfaceTx[s].csPin);
+        // spi_adiInterface[s].pConfig->CSNR = SPI_GetChipSelectPin(spi_adiInterface[s].csType, spi_adiInterface[s].csPin);
+        // spi_ltcInterface[s].pConfig->CSNR = SPI_GetChipSelectPin(spi_ltcInterface[s].csType, spi_ltcInterface[s].csPin);
+        // spi_nxp775InterfaceTx[s].pConfig->CSNR =
+        SPI_GetChipSelectPin(spi_nxp775InterfaceTx[s].csType, spi_nxp775InterfaceTx[s].csPin);
         spi_nxp775InterfaceRx[s].pConfig->CSNR =
             SPI_GetChipSelectPin(spi_nxp775InterfaceRx[s].csType, spi_nxp775InterfaceRx[s].csPin);
     }
-    spi_mxmInterface.pConfig->CSNR    = SPI_GetChipSelectPin(spi_mxmInterface.csType, spi_mxmInterface.csPin);
+    // spi_mxmInterface.pConfig->CSNR    = SPI_GetChipSelectPin(spi_mxmInterface.csType, spi_mxmInterface.csPin);
     spi_framInterface.pConfig->CSNR   = SPI_GetChipSelectPin(spi_framInterface.csType, spi_framInterface.csPin);
     spi_spsInterface.pConfig->CSNR    = SPI_GetChipSelectPin(spi_spsInterface.csType, spi_spsInterface.csPin);
     spi_sbcMcuInterface.pConfig->CSNR = SPI_GetChipSelectPin(spi_sbcMcuInterface.csType, spi_sbcMcuInterface.csPin);

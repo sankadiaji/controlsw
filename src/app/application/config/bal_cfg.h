@@ -75,7 +75,7 @@
 #define BAL_DEFAULT_THRESHOLD_mV (200)
 
 /** maximum value that BAL voltage threshold may take */
-#define BAL_MAXIMUM_THRESHOLD_mV (5000)
+#define BAL_MAXIMUM_THRESHOLD_mV (1300)
 
 /** minimum value that BAL voltage threshold may take */
 #define BAL_MINIMUM_THRESHOLD_mV (0)
@@ -84,7 +84,7 @@
 #define BAL_HYSTERESIS_mV (200)
 
 /** BAL lower voltage limit in MV */
-#define BAL_LOWER_VOLTAGE_LIMIT_mV (2000)
+#define BAL_LOWER_VOLTAGE_LIMIT_mV (1000)
 
 /** BAL upper temperature limit in deci &deg;C */
 #define BAL_UPPER_TEMPERATURE_LIMIT_ddegC (700)

@@ -101,7 +101,7 @@
  * Time in ms to wait for DMA TX notification, after this delay the transaction
  * is considered to have failed
  */
-#define N775_NOTIFICATION_TX_TIMEOUT_ms (1u)
+#define N775_NOTIFICATION_TX_TIMEOUT_ms (1u)  //1u
 /**
  * Time in ms to wait for DMA RX notification, after this delay the transaction
  * is considered to have failed
@@ -167,6 +167,7 @@
  */
 #define N775_TRANSMIT_SPIERRLIMIT (3u)
 
+//#define N775_MAX_NUMBER_OF_VOLTAGES (BS_NR_OF_MODULES_PER_STRING * BS_NR_OF_CELL_BLOCKS_PER_MODULE)
 /**
  * Max number of Bytes to be received from daisy-chain
  * This limit is not due to the hardware.
